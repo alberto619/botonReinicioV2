@@ -1,0 +1,48 @@
+{
+  "base_url": "https://alberto619.github.io/botonReinicioV2/assets-v45/",
+  "control": {
+    "mi-plan-alimentacion": "control/mi-plan-alimentacion.webp",
+    "que-comer-hoy": "control/que-comer-hoy.webp",
+    "cambios-sustituciones": "control/cambios-sustituciones.webp",
+    "lista-super": "control/lista-super.webp",
+    "comer-fuera": "control/comer-fuera.webp",
+    "sos-antojos": "control/sos-antojos.webp",
+    "me-sali-del-plan": "control/me-sali-del-plan.webp"
+  },
+  "training": {
+    "casa-principiante-2": "training/casa-principiante-2.webp",
+    "casa-principiante-3": "training/casa-principiante-3.webp",
+    "casa-principiante-4": "training/casa-principiante-4.webp",
+    "casa-principiante-5": "training/casa-principiante-5.webp",
+    "casa-principiante-6": "training/casa-principiante-6.webp",
+    "casa-intermedio-2": "training/casa-intermedio-2.webp",
+    "casa-intermedio-3": "training/casa-intermedio-3.webp",
+    "casa-intermedio-4": "training/casa-intermedio-4.webp",
+    "casa-intermedio-5": "training/casa-intermedio-5.webp",
+    "casa-intermedio-6": "training/casa-intermedio-6.webp",
+    "casa-avanzado-2": "training/casa-avanzado-2.webp",
+    "casa-avanzado-3": "training/casa-avanzado-3.webp",
+    "casa-avanzado-4": "training/casa-avanzado-4.webp",
+    "casa-avanzado-5": "training/casa-avanzado-5.webp",
+    "casa-avanzado-6": "training/casa-avanzado-6.webp",
+    "gimnasio-principiante-2": "training/gimnasio-principiante-2.webp",
+    "gimnasio-principiante-3": "training/gimnasio-principiante-3.webp",
+    "gimnasio-principiante-4": "training/gimnasio-principiante-4.webp",
+    "gimnasio-principiante-5": "training/gimnasio-principiante-5.webp",
+    "gimnasio-principiante-6": "training/gimnasio-principiante-6.webp",
+    "gimnasio-intermedio-2": "training/gimnasio-intermedio-2.webp",
+    "gimnasio-intermedio-3": "training/gimnasio-intermedio-3.webp",
+    "gimnasio-intermedio-4": "training/gimnasio-intermedio-4.webp",
+    "gimnasio-intermedio-5": "training/gimnasio-intermedio-5.webp",
+    "gimnasio-intermedio-6": "training/gimnasio-intermedio-6.webp",
+    "gimnasio-avanzado-2": "training/gimnasio-avanzado-2.webp",
+    "gimnasio-avanzado-3": "training/gimnasio-avanzado-3.webp",
+    "gimnasio-avanzado-4": "training/gimnasio-avanzado-4.webp",
+    "gimnasio-avanzado-5": "training/gimnasio-avanzado-5.webp",
+    "gimnasio-avanzado-6": "training/gimnasio-avanzado-6.webp"
+  },
+  "notes": {
+    "bhip": "No se incluyó imagen estática de bHIP porque la versión disponible en archivos tiene GO-99 incorrecto. V45 mantiene catálogo HTML preparado para precio/enlace.",
+    "loading": "Las imágenes se cargan únicamente cuando el usuario las abre."
+  }
+}
