@@ -50,13 +50,30 @@ nav{height:48px;border-bottom:1px solid var(--line);display:flex;align-items:cen
 /* Pixel Meta real usado en SOS Antojos */
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','1698998988025454');
+const brParams=new URLSearchParams(location.search);
+const brEntrenaHoy=(brParams.get('oferta')||'').toLowerCase()==='entrenahoy';
+const brValue=brEntrenaHoy?149.00:249.00;
+const brCheckout=brEntrenaHoy?'https://pay.hotmart.com/A107364885M?off=rk1glwju':'https://pay.hotmart.com/A107364885M';
 fbq('track','PageView');
-fbq('track','ViewContent',{content_name:'Boton Reinicio V2',content_type:'product',content_ids:['boton-reinicio-v2'],value:249.00,currency:'MXN'});
+fbq('track','ViewContent',{content_name:'Boton Reinicio V2',content_type:'product',content_ids:['boton-reinicio-v2'],value:brValue,currency:'MXN'});
 (function(){
  const qs=new URLSearchParams(location.search), keys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'], saved={};
+ if(brEntrenaHoy){
+   document.querySelectorAll('.checkout').forEach(a=>{
+     a.href=brCheckout;
+     if(a.classList.contains('sticky')){
+       const p=a.querySelector('strong'); if(p)p.textContent='$149';
+     }else if((a.textContent||'').includes('$249')){
+       a.textContent=a.textContent.replace('$249','$149');
+     }
+   });
+   document.querySelectorAll('.money').forEach(el=>{el.innerHTML='$149 <small>MXN</small>'});
+   const ey=document.querySelector('.buybox .ey');
+   if(ey)ey.textContent='PRECIO ESPECIAL · CLIENTE DE ENTRENA HOY';
+ }
  try{keys.forEach(k=>{const v=qs.get(k);if(v){sessionStorage.setItem('br_'+k,v);saved[k]=v}else{const s=sessionStorage.getItem('br_'+k);if(s)saved[k]=s}})}catch(e){keys.forEach(k=>{const v=qs.get(k);if(v)saved[k]=v})}
  function evt(n,p){try{fbq('trackCustom',n,p||{})}catch(e){}}
- document.querySelectorAll('.checkout').forEach(a=>{let u=new URL(a.href);keys.forEach(k=>{if(saved[k])u.searchParams.set(k,saved[k])});a.href=u.toString();a.addEventListener('click',()=>{fbq('track','InitiateCheckout',{content_name:'Boton Reinicio V2',content_type:'product',content_ids:['boton-reinicio-v2'],num_items:1,value:249.00,currency:'MXN'});evt('BR_CTA_Click',{placement:a.className})})});
+ document.querySelectorAll('.checkout').forEach(a=>{let u=new URL(a.href);keys.forEach(k=>{if(saved[k])u.searchParams.set(k,saved[k])});a.href=u.toString();a.addEventListener('click',()=>{fbq('track','InitiateCheckout',{content_name:'Boton Reinicio V2',content_type:'product',content_ids:['boton-reinicio-v2'],num_items:1,value:brValue,currency:'MXN'});evt('BR_CTA_Click',{placement:a.className})})});
  const v=document.getElementById('founderVideo'); let marks={25:0,50:0,75:0,95:0};
  if(v){v.addEventListener('play',()=>evt('BR_VideoPlay'),{once:true});v.addEventListener('timeupdate',()=>{if(!v.duration)return;let p=v.currentTime/v.duration*100;[25,50,75,95].forEach(m=>{if(p>=m&&!marks[m]){marks[m]=1;evt('BR_Video_'+m)}})});v.addEventListener('ended',()=>evt('BR_VideoComplete'),{once:true})}
  const seen=new Set(),io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){let s=e.target.dataset.section;if(s&&!seen.has(s)){seen.add(s);evt('BR_SectionView',{section:s})}}}),{threshold:.45});document.querySelectorAll('[data-section]').forEach(x=>io.observe(x));
