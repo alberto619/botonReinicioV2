@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+#play{
+ position:absolute;inset:0;margin:auto;width:78px;height:78px;border-radius:50%;
+ border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.58);color:#fff;
+ font:900 28px Arial;display:none;align-items:center;justify-content:center
+}
+#play.on{display:flex}
+</style>
+</head>
+<body>
+<video id="v" muted loop playsinline webkit-playsinline preload="auto"></video>
+<button id="play" aria-label="Reproducir">▶</button>
+<script>
+"use strict";
+const qs=new URLSearchParams(location.search);
+const file=qs.get("v")||"";
+const video=document.getElementById("v");
+const play=document.getElementById("play");
+
+function safeFile(name){
+  return /^[A-Za-z0-9._-]+\.mp4$/i.test(name);
+}
+async function start(){
+  if(!safeFile(file)){ play.classList.add("on"); return; }
+  video.src="./"+file;
+  video.load();
+  try{
+    await video.play();
+    play.classList.remove("on");
+  }catch(e){
+    play.classList.add("on");
+  }
+}
+play.addEventListener("click",async()=>{
+  try{ await video.play(); play.classList.remove("on"); }catch(e){}
+});
+window.addEventListener("message",e=>{
+  if(!e.data||!e.data.type)return;
+  if(e.data.type==="pause")video.pause();
+  if(e.data.type==="play")video.play().catch(()=>play.classList.add("on"));
+  if(e.data.type==="restart"){video.currentTime=0;video.play().catch(()=>play.classList.add("on"))}
+});
+video.addEventListener("playing",()=>play.classList.remove("on"));
+video.addEventListener("pause",()=>{ if(!video.ended) play.classList.add("on"); });
+start();
+</script>
+</body>
+</html>
