@@ -52,7 +52,7 @@ nav{height:48px;border-bottom:1px solid var(--line);display:flex;align-items:cen
 fbq('init','1698998988025454');
 const brParams=new URLSearchParams(location.search);
 const brEntrenaHoy=(brParams.get('oferta')||'').toLowerCase()==='entrenahoy';
-const brValue=brEntrenaHoy?149.00:249.00;
+const brValue=brEntrenaHoy?179.00:249.00;
 const brCheckout=brEntrenaHoy?'https://pay.hotmart.com/A107364885M?off=rk1glwju':'https://pay.hotmart.com/A107364885M';
 fbq('track','PageView');
 fbq('track','ViewContent',{content_name:'Boton Reinicio V2',content_type:'product',content_ids:['boton-reinicio-v2'],value:brValue,currency:'MXN'});
@@ -62,12 +62,12 @@ fbq('track','ViewContent',{content_name:'Boton Reinicio V2',content_type:'produc
    document.querySelectorAll('.checkout').forEach(a=>{
      a.href=brCheckout;
      if(a.classList.contains('sticky')){
-       const p=a.querySelector('strong'); if(p)p.textContent='$149';
+       const p=a.querySelector('strong'); if(p)p.textContent='$179';
      }else if((a.textContent||'').includes('$249')){
-       a.textContent=a.textContent.replace('$249','$149');
+       a.textContent=a.textContent.replace('$249','$179');
      }
    });
-   document.querySelectorAll('.money').forEach(el=>{el.innerHTML='$149 <small>MXN</small>'});
+   document.querySelectorAll('.money').forEach(el=>{el.innerHTML='$179 <small>MXN</small>'});
    const ey=document.querySelector('.buybox .ey');
    if(ey)ey.textContent='PRECIO ESPECIAL · CLIENTE DE ENTRENA HOY';
  }
