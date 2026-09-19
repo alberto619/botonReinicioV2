@@ -39,13 +39,16 @@ nav{height:48px;border-bottom:1px solid var(--line);display:flex;align-items:cen
 <section class="band" data-section="sos"><div class="w sos"><div class="copy"><div class="ey">⚡ SOS ANTOJOS</div><h2>EL PROBLEMA NO SIEMPRE APARECE A LA HORA DE PLANEAR.</h2><p>A veces aparece cuando ya tienes el antojo enfrente. Por eso Botón Reinicio incluye una herramienta para intervenir en ese momento, no mañana.</p></div><div class="sosbox"><b class="accent">¿QUÉ ESTÁ PASANDO AHORA?</b><ul><li>Tengo hambre de verdad</li><li>Tengo antojo</li><li>Estoy ansioso o estresado</li><li>Estoy aburrido</li><li>Estoy en una reunión o fiesta</li><li>Ya empecé y siento que voy a mandar todo al carajo</li></ul><strong>Un antojo no borra tu progreso.</strong></div></div></section>
 
 <section class="band" id="comprar" data-section="offer"><div class="w offer"><div class="copy"><div class="ey">BOTÓN REINICIO</div><h2>TODO EN EL MISMO LUGAR.</h2><div class="stack"><div class="item"><b>CONTROL</b><br><span>Plan de alimentación · qué comer hoy · lista del súper · cambios y sustituciones · comer fuera · SOS Antojos · qué hacer si te saliste del plan.</span></div><div class="item"><b>ACCIÓN</b><br><span>Rutina según tu nivel · casa o gimnasio · ejercicios, series y repeticiones · descansos · progresión · qué entrenar hoy.</span></div><div class="item"><b>CONTINUIDAD</b><br><span>Reinicio 24H · qué hacer cuando fallaste · recuperar el ritmo · romper el todo o nada · Victoria de Hoy.</span></div><div class="item"><b>MI PROGRESO</b><br><span>Peso · entrenamientos · días en control · reinicios · medidas · fotos · racha y avances.</span></div></div></div>
-<aside class="buybox"><div class="ey">PRECIO DE LANZAMIENTO</div><div class="money">$249 <small>MXN</small></div><p>Pago único · acceso inmediato.</p><a class="btn checkout" href="https://pay.hotmart.com/A107364885M">ACTIVAR MI REINICIO →</a><div class="trust">7 días de garantía</div></aside></div></section>
+<aside class="buybox"><div class="ey">PRECIO DE LANZAMIENTO</div><div class="money">$249 <small>MXN</small></div><p>Pago único · acceso inmediato.</p><a class="btn checkout" href="https://pay.hotmart.com/A107364885M">ACTIVAR MI REINICIO →</a><div id="hotmart-sales-funnel" style="display:none"></div><div class="trust">7 días de garantía</div></aside></div></section>
 
 <section class="band" data-section="faq"><div class="w faq"><div><div class="ey">ANTES DE ENTRAR</div><h2>LO ESENCIAL.</h2></div><div><details><summary>¿Necesito gimnasio?</summary><p>No. Hay rutas para casa o gimnasio según las opciones disponibles.</p></details><details><summary>¿Necesito experiencia?</summary><p>No. La selección considera tu nivel.</p></details><details><summary>¿Qué pasa si me salgo del plan?</summary><p>Ese es uno de los puntos centrales: tener una siguiente acción en lugar de convertir un tropiezo en abandono.</p></details><details><summary>¿Es una suscripción?</summary><p>No. El precio mostrado es pago único.</p></details><details><summary>¿Sustituye atención médica?</summary><p>No. Es una herramienta educativa y de organización; no diagnostica ni sustituye atención profesional.</p></details></div></div></section>
 </main>
 <footer><div class="w">BOTÓN REINICIO · ALBERTO AMESCUA · Los resultados varían entre personas.</div></footer>
 <a class="sticky checkout" href="https://pay.hotmart.com/A107364885M"><span><small>BOTÓN REINICIO</small>ACTIVAR AHORA</span><strong>$249</strong></a>
 
+<!-- HOTMART - Sales Funnel Widget -->
+<script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+<!-- /HOTMART - Sales Funnel Widget -->
 <script>
 /* Pixel Meta real usado en SOS Antojos */
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -70,6 +73,32 @@ fbq('track','ViewContent',{content_name:'Boton Reinicio V2',content_type:'produc
    document.querySelectorAll('.money').forEach(el=>{el.innerHTML='$179 <small>MXN</small>'});
    const ey=document.querySelector('.buybox .ey');
    if(ey)ey.textContent='PRECIO ESPECIAL · CLIENTE DE ENTRENA HOY';
+
+   // En el upsell de Entrena Hoy, Hotmart procesa ACEPTAR / RECHAZAR con su widget.
+   const funnel=document.getElementById('hotmart-sales-funnel');
+   if(funnel){
+     funnel.style.display='block';
+     try{
+       checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel');
+     }catch(e){
+       console.error('Hotmart sales funnel widget:',e);
+     }
+   }
+
+   // Evita que los CTA antiguos brinquen directo al checkout y se salten el embudo.
+   document.querySelectorAll('.checkout').forEach(a=>{
+     if(a.closest('.buybox')){
+       a.style.display='none';
+       a.classList.remove('checkout');
+     }else{
+       a.classList.remove('checkout');
+       a.href='#comprar';
+       a.addEventListener('click',e=>{
+         e.preventDefault();
+         document.getElementById('comprar')?.scrollIntoView({behavior:'smooth',block:'center'});
+       });
+     }
+   });
  }
  try{keys.forEach(k=>{const v=qs.get(k);if(v){sessionStorage.setItem('br_'+k,v);saved[k]=v}else{const s=sessionStorage.getItem('br_'+k);if(s)saved[k]=s}})}catch(e){keys.forEach(k=>{const v=qs.get(k);if(v)saved[k]=v})}
  function evt(n,p){try{fbq('trackCustom',n,p||{})}catch(e){}}
